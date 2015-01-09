@@ -64,6 +64,7 @@ public class DBOperations {
             stmt = conn.createStatement();
             ResultSet results = stmt.executeQuery("select * from " + tableName + "where full_name='" + name + "'");
             while(results.next()) {
+                personData.setID(results.getInt(1));
                 personData.setFULL_NAME(results.getString(2));
                 personData.setPIN(results.getString(3));
                 personData.setEMAIL(results.getString(4));       
@@ -82,8 +83,8 @@ public class DBOperations {
         if(validateMessage != null) {
             return validateMessage;
         }
-        String createResult = createPersonInternal(personData);
-        return createResult;
+        String result = createPersonInternal(personData);
+        return result;
     }
     
     private static String createPersonInternal(PersonData personData) {
@@ -112,7 +113,70 @@ public class DBOperations {
                 queryString += "'" + personData.getEMAIL() + "'";
             }
             queryString += ")";
+            int executeUpdate = stmt.executeUpdate(queryString);
+        } catch (SQLException e) {
+            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
+            return e.getMessage();
+        }
+        return null;
+    }
+    
+    public static String updatePerson(PersonData personData) {
+        String validateMessage;
+        validateMessage = validatePersonData(personData);
+        if(validateMessage != null) {
+            return validateMessage;
+        }
+        String result = updatePersonInternal(personData);
+        return result;
+    }
+    
+    private static String updatePersonInternal(PersonData personData) {
+        if(!isConnected()) {
+            String resultString = createConnection();
+            if(resultString != null) {
+                return resultString;
+            }
+        }
+        
+        try {
+            stmt = conn.createStatement();
+            // insert into root.T_PEOPLE(FULL_NAME, PIN, EMAIL) VALUES ('ИВАН ПЕТРОВ ИВАНОВ', NULL, NULL);
+            String queryString = "update " + tableName + "set FULL_NAME=" + "'" +
+                    personData.getFULL_NAME() + "',PIN=";
+            if(personData.getPIN().isEmpty()) {
+                queryString += "NULL";
+            }
+            else {
+                queryString += "'" + personData.getPIN() + "'";
+            }
+            queryString += ",EMAIL=";
+            if(personData.getEMAIL().isEmpty()) {
+                queryString += "NULL";
+            }
+            else {
+                queryString += "'" + personData.getEMAIL() + "'";
+            }
+            queryString += " where ID=" + personData.getID();
             stmt.executeUpdate(queryString);
+        } catch (SQLException e) {
+            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
+            return e.getMessage();
+        }
+        return null;
+    }
+    
+    public static String deletePerson(int id) {
+         if(!isConnected()) {
+            String resultString = createConnection();
+            if(resultString != null) {
+                return resultString;
+            }
+        }
+         
+        try {
+            stmt = conn.createStatement();
+            stmt.executeUpdate("delete from " + tableName + " where ID=" + id);
         } catch (SQLException e) {
             Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
             return e.getMessage();

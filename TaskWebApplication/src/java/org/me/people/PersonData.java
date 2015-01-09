@@ -1,6 +1,7 @@
 package org.me.people;
 
 public class PersonData {
+    private int ID;
     private String FULL_NAME;
     private String PIN;
     private String EMAIL;
@@ -45,6 +46,20 @@ public class PersonData {
      */
     public void setEMAIL(String EMAIL) {
         this.EMAIL = EMAIL;
+    }
+
+    /**
+     * @return the ID
+     */
+    public int getID() {
+        return ID;
+    }
+
+    /**
+     * @param ID the ID to set
+     */
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
 }
