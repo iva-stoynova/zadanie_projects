@@ -18,14 +18,6 @@ import javax.ejb.Stateless;
 @Stateless()
 public class PeopleWS {
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "add")
-    public int add(@WebParam(name = "i") int i, @WebParam(name = "j") int j) {
-        int k = i + j;
-        return k;
-    }
 
     /**
      * Web service operation
@@ -34,6 +26,36 @@ public class PeopleWS {
     public String createPerson(@WebParam(name = "personData") final PersonData personData) {
         String result;
         result = DBOperations.createPerson(personData);
+        return result;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "findPerson")
+    public PersonData findPerson(@WebParam(name = "name") String name) {
+        PersonData personData;
+        personData = DBOperations.findPerson(name);
+        return personData;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updatePerson")
+    public String updatePerson(@WebParam(name = "personData") PersonData personData) {
+        String result;
+        result = DBOperations.updatePerson(personData);
+        return result;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deletePerson")
+    public String deletePerson(@WebParam(name = "id") int id) {
+        String result;
+        result = DBOperations.deletePerson(id);
         return result;
     }
 

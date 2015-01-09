@@ -189,6 +189,9 @@ public class DBOperations {
         if(full_name.isEmpty()) {
             return "Name field cannot be empty";
         }
+        if(full_name.length() > 90) {
+            return "Name field cannot be longer than 90 characters";
+        }
         Pattern pattern = Pattern.compile("[^a-zA-Z0-9а-яА-Я\\ \\-]");
         boolean hasOtherCharacter = pattern.matcher(full_name).find();
         if(hasOtherCharacter) {
@@ -196,17 +199,20 @@ public class DBOperations {
         }
         String pin = personData.getPIN();
         if(!pin.isEmpty()) {
+            if(pin.length() != 10) {
+                return "PIN must be exactly 10 digits";
+            }
             pattern = Pattern.compile("^[0-9]");
             hasOtherCharacter = pattern.matcher(pin).find();
             if(hasOtherCharacter) {
                 return "PIN must contain numbers only";
             }            
-            if(pin.length() != 10) {
-                return "PIN must be exactly 10 digits";
-            }
         }
         String email = personData.getEMAIL();
         if(!email.isEmpty()) {
+            if(email.length() > 40) {
+                return "Email cannot be longer than 40 characters";
+            }
             EmailValidator emailValidator = EmailValidator.getInstance();
             boolean isAddressValid = emailValidator.isValid(email);
             if(!isAddressValid) {
