@@ -113,7 +113,7 @@ public class DBOperations {
                 queryString += "'" + personData.getEMAIL() + "'";
             }
             queryString += ")";
-            int executeUpdate = stmt.executeUpdate(queryString);
+            stmt.executeUpdate(queryString);
         } catch (SQLException e) {
             Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
             return e.getMessage();
