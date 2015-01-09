@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import org.apache.commons.validator.routines.EmailValidator;
 
 public class DBOperations {
@@ -121,20 +122,33 @@ public class DBOperations {
     
     private static String validatePersonData(PersonData personData) {
         String full_name = personData.getFULL_NAME();
-        String pin = personData.getPIN();
-        String email = personData.getEMAIL();
         if(full_name.isEmpty()) {
             return "Name field cannot be empty";
         }
-        EmailValidator emailValidator = EmailValidator.getInstance();
-        boolean isAddressValid = emailValidator.isValid(email);
-        if(!isAddressValid) {
-            return "Email address is not valid";
+        Pattern pattern = Pattern.compile("[^a-zA-Z0-9а-яА-Я\\ \\-]");
+        boolean hasOtherCharacter = pattern.matcher(full_name).find();
+        if(hasOtherCharacter) {
+            return "Name must contain only latin or cyrillic letters, a space or a dash";
         }
-        
-        
-        // verify pin
-        // verify email
+        String pin = personData.getPIN();
+        if(!pin.isEmpty()) {
+            pattern = Pattern.compile("^[0-9]");
+            hasOtherCharacter = pattern.matcher(pin).find();
+            if(hasOtherCharacter) {
+                return "PIN must contain numbers only";
+            }            
+            if(pin.length() != 10) {
+                return "PIN must be exactly 10 digits";
+            }
+        }
+        String email = personData.getEMAIL();
+        if(!email.isEmpty()) {
+            EmailValidator emailValidator = EmailValidator.getInstance();
+            boolean isAddressValid = emailValidator.isValid(email);
+            if(!isAddressValid) {
+                return "Email address is not valid";
+            }
+        }
         return null;
     }
 }
