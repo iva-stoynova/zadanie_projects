@@ -123,12 +123,15 @@ public class MainDialog extends javax.swing.JDialog {
         boolean result = dialog.showDialog();
         String message;
         if(result) {
-            message = "ok button pressed";
+            // ok button pressed
+            CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
+            updateDialog.setUpdatePersonMode(true);
+            updateDialog.setVisible(true);
         }
         else {
-            message = "cancel button pressed";
+            // cancel button pressed
         }
-        JOptionPane.showMessageDialog(this, message);
+        //JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_updatePersonButtonActionPerformed
 
     private void deletePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonButtonActionPerformed
