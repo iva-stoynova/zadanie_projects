@@ -96,8 +96,15 @@ public class MainDialog extends javax.swing.JDialog {
     private void findPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
-        dialog.setVisible(true);
-        JOptionPane.showMessageDialog(this, "test");
+        boolean result = dialog.showDialog();
+        String message;
+        if(result) {
+            message = "ok button pressed";
+        }
+        else {
+            message = "cancel button pressed";
+        }
+        JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_findPersonButtonActionPerformed
 
     /**

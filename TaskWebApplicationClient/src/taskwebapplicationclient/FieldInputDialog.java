@@ -11,6 +11,7 @@ package taskwebapplicationclient;
  */
 public class FieldInputDialog extends javax.swing.JDialog {
     private FieldInputMode mode;
+    private boolean okButtonPressed = false;
     /**
      * Creates new form FieldInputDialog
      */
@@ -32,6 +33,11 @@ public class FieldInputDialog extends javax.swing.JDialog {
         }
         okButton.setText(buttonText);
         mode = newMode;
+    }
+    
+    public boolean showDialog() {
+        setVisible(true);
+        return okButtonPressed;
     }
 
     /**
@@ -102,11 +108,15 @@ public class FieldInputDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();
+        okButtonPressed = false;
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        this.dispose();
+        okButtonPressed = true;
+        setVisible(false);
+        dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
     /**
