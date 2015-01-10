@@ -28,46 +28,17 @@ public class MainDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        findPersonButton = new javax.swing.JButton();
-        createPersonButton = new javax.swing.JButton();
-        deletePersonButton = new javax.swing.JButton();
-        updatePersonButton = new javax.swing.JButton();
-
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        findPersonButton.setText("Find a person");
-
-        createPersonButton.setText("Create a person");
-
-        deletePersonButton.setText("Delete a person");
-
-        updatePersonButton.setText("Update a person");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(createPersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(findPersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(updatePersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deletePersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(98, Short.MAX_VALUE))
+            .addGap(0, 570, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(createPersonButton)
-                .addGap(31, 31, 31)
-                .addComponent(findPersonButton)
-                .addGap(30, 30, 30)
-                .addComponent(updatePersonButton)
-                .addGap(37, 37, 37)
-                .addComponent(deletePersonButton)
-                .addContainerGap(49, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -116,9 +87,5 @@ public class MainDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton createPersonButton;
-    private javax.swing.JButton deletePersonButton;
-    private javax.swing.JButton findPersonButton;
-    private javax.swing.JButton updatePersonButton;
     // End of variables declaration//GEN-END:variables
 }

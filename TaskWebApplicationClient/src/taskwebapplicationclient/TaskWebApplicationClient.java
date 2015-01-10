@@ -7,7 +7,7 @@ package taskwebapplicationclient;
 
 /**
  *
- * @author Iva Stoynova
+ * @author vesko
  */
 public class TaskWebApplicationClient {
 
