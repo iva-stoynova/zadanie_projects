@@ -5,6 +5,8 @@
  */
 package taskwebapplicationclient;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Iva Stoynova
@@ -44,6 +46,11 @@ public class MainDialog extends javax.swing.JDialog {
         });
 
         findPersonButton.setText("Find a person");
+        findPersonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                findPersonButtonActionPerformed(evt);
+            }
+        });
 
         updatePersonButton.setText("Update a person");
 
@@ -85,6 +92,13 @@ public class MainDialog extends javax.swing.JDialog {
         dialog.setUpdatePersonMode(false);
         dialog.setVisible(true);
     }//GEN-LAST:event_createPersonButtonActionPerformed
+
+    private void findPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPersonButtonActionPerformed
+        FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
+        dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
+        dialog.setVisible(true);
+        JOptionPane.showMessageDialog(this, "test");
+    }//GEN-LAST:event_findPersonButtonActionPerformed
 
     /**
      * @param args the command line arguments
