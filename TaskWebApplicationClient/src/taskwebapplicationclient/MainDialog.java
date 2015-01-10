@@ -53,8 +53,18 @@ public class MainDialog extends javax.swing.JDialog {
         });
 
         updatePersonButton.setText("Update a person");
+        updatePersonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updatePersonButtonActionPerformed(evt);
+            }
+        });
 
         deletePersonButton.setText("Delete a person");
+        deletePersonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletePersonButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -106,6 +116,34 @@ public class MainDialog extends javax.swing.JDialog {
         }
         JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_findPersonButtonActionPerformed
+
+    private void updatePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePersonButtonActionPerformed
+        FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
+        dialog.setFieldInputMode(FieldInputMode.UPDATE_PERSON);
+        boolean result = dialog.showDialog();
+        String message;
+        if(result) {
+            message = "ok button pressed";
+        }
+        else {
+            message = "cancel button pressed";
+        }
+        JOptionPane.showMessageDialog(this, message);
+    }//GEN-LAST:event_updatePersonButtonActionPerformed
+
+    private void deletePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonButtonActionPerformed
+        FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
+        dialog.setFieldInputMode(FieldInputMode.DELETE_PERSON);
+        boolean result = dialog.showDialog();
+        String message;
+        if(result) {
+            message = "ok button pressed";
+        }
+        else {
+            message = "cancel button pressed";
+        }
+        JOptionPane.showMessageDialog(this, message);
+    }//GEN-LAST:event_deletePersonButtonActionPerformed
 
     /**
      * @param args the command line arguments
