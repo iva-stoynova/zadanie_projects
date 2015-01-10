@@ -7,7 +7,7 @@ package taskwebapplicationclient;
 
 /**
  *
- * @author vesko
+ * @author Iva Stoynova
  */
 public class MainDialog extends javax.swing.JDialog {
 
@@ -36,6 +36,11 @@ public class MainDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         createPersonButton.setText("Create a person");
+        createPersonButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createPersonButtonActionPerformed(evt);
+            }
+        });
 
         findPersonButton.setText("Find a person");
 
@@ -73,6 +78,11 @@ public class MainDialog extends javax.swing.JDialog {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void createPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPersonButtonActionPerformed
+        CreateOrUpdateDialog dialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_createPersonButtonActionPerformed
 
     /**
      * @param args the command line arguments

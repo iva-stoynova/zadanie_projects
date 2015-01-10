@@ -56,6 +56,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Create a person"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createPersonButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="findPersonButton">
       <Properties>
