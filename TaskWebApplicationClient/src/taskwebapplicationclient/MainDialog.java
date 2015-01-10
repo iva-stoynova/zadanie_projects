@@ -34,6 +34,7 @@ public class MainDialog extends javax.swing.JDialog {
         deletePersonButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
         createPersonButton.setText("Create a person");
         createPersonButton.addActionListener(new java.awt.event.ActionListener() {
@@ -81,6 +82,7 @@ public class MainDialog extends javax.swing.JDialog {
 
     private void createPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPersonButtonActionPerformed
         CreateOrUpdateDialog dialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
+        dialog.setUpdatePersonMode(false);
         dialog.setVisible(true);
     }//GEN-LAST:event_createPersonButtonActionPerformed
 
