@@ -71,6 +71,7 @@ public class MainDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /**
@@ -110,8 +111,6 @@ public class MainDialog extends javax.swing.JDialog {
                         System.exit(0);
                     }
                 });
-                // Center the window on the screen
-                dialog.setLocationRelativeTo(null);
                 dialog.setVisible(true);
             }
         });
