@@ -41,18 +41,32 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
 
         nameTextField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        emailTextField = new javax.swing.JTextField();
         pinTextField = new javax.swing.JTextField();
-        pinTextField1 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
+        emailCheckBox = new javax.swing.JCheckBox();
+        pinCheckBox = new javax.swing.JCheckBox();
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
         jLabel1.setText("Full name:");
 
-        jCheckBox1.setText("Email");
+        emailTextField.setEnabled(false);
 
-        jCheckBox2.setText("PIN");
+        pinTextField.setEnabled(false);
+
+        emailCheckBox.setText("Email");
+        emailCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailCheckBoxActionPerformed(evt);
+            }
+        });
+
+        pinCheckBox.setText("PIN");
+        pinCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pinCheckBoxActionPerformed(evt);
+            }
+        });
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -77,13 +91,13 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pinTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel1)
-                                .addComponent(pinTextField1)
+                                .addComponent(pinTextField)
                                 .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jCheckBox1)
-                            .addComponent(jCheckBox2)))
+                            .addComponent(emailCheckBox)
+                            .addComponent(pinCheckBox)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(okButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -99,13 +113,13 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addComponent(jCheckBox2)
+                .addComponent(pinCheckBox)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pinTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jCheckBox1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pinTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(emailCheckBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(emailTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(okButton)
@@ -118,22 +132,30 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        this.dispose();
+        dispose();
     }//GEN-LAST:event_okButtonActionPerformed
+
+    private void pinCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinCheckBoxActionPerformed
+        pinTextField.setEnabled(pinCheckBox.isSelected());
+    }//GEN-LAST:event_pinCheckBoxActionPerformed
+
+    private void emailCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailCheckBoxActionPerformed
+        emailTextField.setEnabled(emailCheckBox.isSelected());
+    }//GEN-LAST:event_emailCheckBoxActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox emailCheckBox;
+    private javax.swing.JTextField emailTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField nameTextField;
     private javax.swing.JButton okButton;
+    private javax.swing.JCheckBox pinCheckBox;
     private javax.swing.JTextField pinTextField;
-    private javax.swing.JTextField pinTextField1;
     // End of variables declaration//GEN-END:variables
 }
