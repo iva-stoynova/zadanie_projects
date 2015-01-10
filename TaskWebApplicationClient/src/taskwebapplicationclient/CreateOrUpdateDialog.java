@@ -7,7 +7,7 @@ package taskwebapplicationclient;
 
 /**
  *
- * @author vesko
+ * @author Iva Stoynova
  */
 public class CreateOrUpdateDialog extends javax.swing.JDialog {
 
