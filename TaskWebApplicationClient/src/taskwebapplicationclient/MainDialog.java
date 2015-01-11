@@ -134,9 +134,13 @@ public class MainDialog extends javax.swing.JDialog {
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.DELETE_PERSON);
         boolean result = dialog.showDialog();
-        String message;
+        String message = null;
         if(result) {
-            message = "ok button pressed";
+            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true);
+            Integer personListDialogResult= personListDialog.showDialog();
+            if(personListDialogResult != null) {
+                message = Integer.toString(personListDialogResult);
+            }
         }
         else {
             message = "cancel button pressed";
