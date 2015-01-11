@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -52,29 +53,39 @@ public class DBOperations {
         return true;
     }
     
-    public static PersonData findPerson(String name) {
+    public static PersonData[] findPersons(String name) {
         if(!isConnected()) {
             if(createConnection() != null) {
                 return null;
             }
         }
+        
+        LinkedList<PersonData> personDataList = new LinkedList<PersonData>();
+        
         PersonData personData;
         try {
-            personData = new PersonData();
+
             stmt = conn.createStatement();
             ResultSet results = stmt.executeQuery("select * from " + tableName + "where full_name='" + name + "'");
             while(results.next()) {
+                personData = new PersonData();
                 personData.setID(results.getInt(1));
                 personData.setFULL_NAME(results.getString(2));
                 personData.setPIN(results.getString(3));
-                personData.setEMAIL(results.getString(4));       
+                personData.setEMAIL(results.getString(4));
+                personDataList.add(personData);
             }
         } catch (SQLException e) {
             Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
-
-        return personData;
+        PersonData[] personDataArray = new PersonData[personDataList.size()];
+        int i = 0;
+        for(PersonData item : personDataList) {
+            personDataArray[i] = item;
+            i++;
+        }
+        return personDataArray;
     }
     
     public static String createPerson(PersonData personData) {

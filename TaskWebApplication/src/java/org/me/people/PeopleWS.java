@@ -29,15 +29,6 @@ public class PeopleWS {
         return result;
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "findPerson")
-    public PersonData findPerson(@WebParam(name = "name") String name) {
-        PersonData personData;
-        personData = DBOperations.findPerson(name);
-        return personData;
-    }
 
     /**
      * Web service operation
