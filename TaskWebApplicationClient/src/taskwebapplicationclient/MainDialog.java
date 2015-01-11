@@ -109,19 +109,15 @@ public class MainDialog extends javax.swing.JDialog {
         boolean result = dialog.showDialog();
         String message;
         if(result) {
-            message = "ok button pressed";
+            String searchName = dialog.getSearchName();
+            //JOptionPane.showMessageDialog(this, searchName);
         }
-        else {
-            message = "cancel button pressed";
-        }
-        JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_findPersonButtonActionPerformed
 
     private void updatePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.UPDATE_PERSON);
         boolean result = dialog.showDialog();
-        String message;
         if(result) {
             // ok button pressed
             CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);

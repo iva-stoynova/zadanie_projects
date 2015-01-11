@@ -113,6 +113,10 @@ public class FieldInputDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
+    public String getSearchName() {
+        return searchNameTextField.getText();
+    }
+    
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         okButtonPressed = true;
         setVisible(false);
