@@ -53,18 +53,16 @@ public class DBOperations {
         return true;
     }
     
-    public static PersonData[] findPersons(String name) {
+    public static LinkedList<PersonData> findPersons(String name) {
         if(!isConnected()) {
             if(createConnection() != null) {
                 return null;
             }
         }
         
-        LinkedList<PersonData> personDataList = new LinkedList<PersonData>();
-        
+        LinkedList<PersonData> personDataList = new LinkedList<>();        
         PersonData personData;
         try {
-
             stmt = conn.createStatement();
             ResultSet results = stmt.executeQuery("select * from " + tableName + "where full_name='" + name + "'");
             while(results.next()) {
@@ -79,13 +77,7 @@ public class DBOperations {
             Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
-        PersonData[] personDataArray = new PersonData[personDataList.size()];
-        int i = 0;
-        for(PersonData item : personDataList) {
-            personDataArray[i] = item;
-            i++;
-        }
-        return personDataArray;
+        return personDataList;
     }
     
     public static String createPerson(PersonData personData) {

@@ -5,6 +5,7 @@
  */
 package org.me.people;
 
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -48,6 +49,15 @@ public class PeopleWS {
         String result;
         result = DBOperations.deletePerson(id);
         return result;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "findPersons")
+    public List findPersons(@WebParam(name = "name") String name) {
+        //TODO write your implementation code here:
+        return null;
     }
 
 }
