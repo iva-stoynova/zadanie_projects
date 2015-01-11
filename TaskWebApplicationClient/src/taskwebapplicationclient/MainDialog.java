@@ -106,19 +106,17 @@ public class MainDialog extends javax.swing.JDialog {
     private void findPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
-        boolean result = dialog.showDialog();
-        String message;
-        if(result) {
-            String searchName = dialog.getSearchName();
-            //JOptionPane.showMessageDialog(this, searchName);
+        String searchName = dialog.showDialog();
+        if(searchName != null) {
+           JOptionPane.showMessageDialog(this, searchName);
         }
     }//GEN-LAST:event_findPersonButtonActionPerformed
 
     private void updatePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatePersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.UPDATE_PERSON);
-        boolean result = dialog.showDialog();
-        if(result) {
+        String searchName = dialog.showDialog();
+        if(searchName != null) {
             // ok button pressed
             CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
             updateDialog.setUpdatePersonMode(true);
@@ -133,10 +131,10 @@ public class MainDialog extends javax.swing.JDialog {
     private void deletePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.DELETE_PERSON);
-        boolean result = dialog.showDialog();
+        String searchName = dialog.showDialog();
         String message = null;
-        if(result) {
-            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true);
+        if(searchName != null) {
+            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, null);
             Integer personListDialogResult= personListDialog.showDialog();
             if(personListDialogResult != null) {
                 message = Integer.toString(personListDialogResult);

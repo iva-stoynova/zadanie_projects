@@ -5,19 +5,23 @@
  */
 package taskwebapplicationclient;
 
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.me.people.PersonData;
 
 /**
  *
  * @author Iva Stoynova
  */
 public class PersonListDialog extends javax.swing.JDialog {
+    List<PersonData> personDataList;
     Integer indexOfSelectedItem = null;
     /**
      * Creates new form PersonListDialog
      */
-    public PersonListDialog(java.awt.Frame parent, boolean modal) {
+    public PersonListDialog(java.awt.Frame parent, boolean modal, List<PersonData> personDataList) {
         super(parent, modal);
+        this.personDataList = personDataList;
         initComponents();
     }
     

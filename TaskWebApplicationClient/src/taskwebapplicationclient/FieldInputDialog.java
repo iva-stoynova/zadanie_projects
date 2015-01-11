@@ -5,13 +5,15 @@
  */
 package taskwebapplicationclient;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Iva Stoynova
  */
 public class FieldInputDialog extends javax.swing.JDialog {
     private FieldInputMode mode;
-    private boolean okButtonPressed = false;
+    private String searchName = null;
     /**
      * Creates new form FieldInputDialog
      */
@@ -35,9 +37,9 @@ public class FieldInputDialog extends javax.swing.JDialog {
         mode = newMode;
     }
     
-    public boolean showDialog() {
+    public String showDialog() {
         setVisible(true);
-        return okButtonPressed;
+        return searchName;
     }
 
     /**
@@ -108,19 +110,21 @@ public class FieldInputDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        okButtonPressed = false;
+        searchName = null;
         setVisible(false);
         dispose();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    public String getSearchName() {
-        return searchNameTextField.getText();
-    }
-    
+ 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        okButtonPressed = true;
-        setVisible(false);
-        dispose();
+        if(searchNameTextField.getText().isEmpty()) {
+           JOptionPane.showMessageDialog(this, "Please enter some text in the text field");
+        }
+        else {
+            searchName = searchNameTextField.getText();
+            setVisible(false);
+            dispose();
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     /**
