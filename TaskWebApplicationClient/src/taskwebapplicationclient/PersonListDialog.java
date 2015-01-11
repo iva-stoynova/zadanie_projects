@@ -5,6 +5,8 @@
  */
 package taskwebapplicationclient;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Iva Stoynova
@@ -43,9 +45,6 @@ public class PersonListDialog extends javax.swing.JDialog {
 
         personDataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
                 {null, null, null}
             },
             new String [] {
@@ -67,10 +66,13 @@ public class PersonListDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        personDataTable.setColumnSelectionAllowed(true);
         personDataTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(personDataTable);
         personDataTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (personDataTable.getColumnModel().getColumnCount() > 0) {
+            personDataTable.getColumnModel().getColumn(0).setResizable(false);
+            personDataTable.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -118,12 +120,18 @@ public class PersonListDialog extends javax.swing.JDialog {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        indexOfSelectedItem = personDataTable.getSelectedRow();
-        setVisible(false);
-        dispose();
+        if(personDataTable.getSelectedRow() != -1) {
+            indexOfSelectedItem = personDataTable.getSelectedRow();
+            setVisible(false);
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Please select a person first");
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
