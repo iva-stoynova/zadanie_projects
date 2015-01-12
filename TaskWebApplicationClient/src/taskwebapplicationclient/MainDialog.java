@@ -6,8 +6,11 @@
 package taskwebapplicationclient;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.me.people.PersonData;
+import org.me.people.PersonDataException;
 
 /**
  *
@@ -110,7 +113,13 @@ public class MainDialog extends javax.swing.JDialog {
         dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
         String searchName = dialog.showDialog();
         if(searchName != null) {
-           List<PersonData> personDataList = (List<PersonData>)(Object)findPersons(searchName);
+           List<PersonData> personDataList;
+            try {
+                personDataList = (List<PersonData>)(Object)findPersons(searchName);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
            if(personDataList.size() > 0) {
                String message;
                 PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList);
@@ -209,7 +218,7 @@ public class MainDialog extends javax.swing.JDialog {
     private javax.swing.JButton updatePersonButton;
     // End of variables declaration//GEN-END:variables
 
-    private static java.util.List<java.lang.Object> findPersons(java.lang.String name) {
+    private static java.util.List<java.lang.Object> findPersons(java.lang.String name) throws PersonDataException {
         org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
         org.me.people.PeopleWS port = service.getPeopleWSPort();
         return port.findPersons(name);
@@ -232,4 +241,5 @@ public class MainDialog extends javax.swing.JDialog {
         org.me.people.PeopleWS port = service.getPeopleWSPort();
         return port.updatePerson(personData);
     }
+
 }
