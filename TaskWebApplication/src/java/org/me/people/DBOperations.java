@@ -120,7 +120,7 @@ public class DBOperations {
         }        
 
         stmt = conn.createStatement();
-        String queryString = "update " + tableName + "set FULL_NAME=" + "'" +
+        String queryString = "update " + tableName + " set FULL_NAME=" + "'" +
                 personData.getFULL_NAME() + "',PIN=";
         if(personData.getPIN() == null || personData.getPIN().isEmpty()) {
             queryString += "NULL";
