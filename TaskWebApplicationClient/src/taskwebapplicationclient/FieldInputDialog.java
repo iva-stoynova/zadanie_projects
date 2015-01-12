@@ -23,17 +23,6 @@ public class FieldInputDialog extends javax.swing.JDialog {
     }
     
     public void setFieldInputMode(FieldInputMode newMode) {
-        String buttonText = null;
-        if(newMode == FieldInputMode.FIND_PERSON) {
-            buttonText = "Find person";
-        }
-        else if(newMode == FieldInputMode.UPDATE_PERSON) {
-            buttonText = "Update person";
-        }
-        else if(newMode == FieldInputMode.DELETE_PERSON) {
-            buttonText = "Delete person";
-        }
-        okButton.setText(buttonText);
         mode = newMode;
     }
     
@@ -67,7 +56,7 @@ public class FieldInputDialog extends javax.swing.JDialog {
             }
         });
 
-        okButton.setText("OK");
+        okButton.setText("Find");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);

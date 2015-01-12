@@ -43,7 +43,7 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
             if(email != null && !email.isEmpty()) {
                 emailCheckBox.setSelected(true);
                 emailTextField.setEnabled(true);
-                emailTextField.setText(pin);
+                emailTextField.setText(email);
             }
             else {
                 emailCheckBox.setSelected(false);
@@ -171,7 +171,7 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
             String message;
             if(updatePersonData != null) {
                 personData.setID(updatePersonData.getID());
-                message = MainDialog.updatePerson(updatePersonData);
+                message = MainDialog.updatePerson(personData);
                 if(message == null) {
                     JOptionPane.showMessageDialog(this, "Person record updated successfully");            
                 }

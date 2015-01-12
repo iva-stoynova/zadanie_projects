@@ -50,7 +50,7 @@ public class MainDialog extends javax.swing.JDialog {
             }
         });
 
-        findPersonButton.setText("View person info");
+        findPersonButton.setText("View person");
         findPersonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findPersonButtonActionPerformed(evt);
@@ -181,11 +181,15 @@ public class MainDialog extends javax.swing.JDialog {
                 return;
             }
             if(selectedPersonIndex != null) {
-                try {
-                    deletePerson(personDataList.get(selectedPersonIndex).getID());
-                } catch (PersonDataException ex) {
-                    Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                int result = JOptionPane.showConfirmDialog(this, "Delete selected person data?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if(result == JOptionPane.YES_OPTION) {  
+                    try {
+                        deletePerson(personDataList.get(selectedPersonIndex).getID());
+                        JOptionPane.showMessageDialog(this, "Person record deleted successfully"); 
+                    } catch (PersonDataException ex) {
+                        Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
             }
         }
