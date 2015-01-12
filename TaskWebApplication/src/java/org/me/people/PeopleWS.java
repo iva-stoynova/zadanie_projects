@@ -22,38 +22,6 @@ import javax.ejb.Stateless;
 @Stateless()
 public class PeopleWS {
 
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "createPerson")
-    public String createPerson(@WebParam(name = "personData") final PersonData personData) {
-        String result;
-        result = DBOperations.createPerson(personData);
-        return result;
-    }
-
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "updatePerson")
-    public String updatePerson(@WebParam(name = "personData") PersonData personData) {
-        String result;
-        result = DBOperations.updatePerson(personData);
-        return result;
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "deletePerson")
-    public String deletePerson(@WebParam(name = "id") int id) {
-        String result;
-        result = DBOperations.deletePerson(id);
-        return result;
-    }
-
     /**
      * Web service operation
      */
@@ -62,10 +30,51 @@ public class PeopleWS {
         List<PersonData> list;
         try {
             list = DBOperations.findPersons(name);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             throw new PersonDataException(ex.getMessage(), new PersonDataExceptionBean());
         }
         return list;
+    }
+
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "createPerson")
+    public String createPerson(@WebParam(name = "personData") PersonData personData) throws PersonDataException {
+        String message;
+        try {
+            message = DBOperations.createPerson(personData);
+        } catch (Exception ex) {
+            throw new PersonDataException(ex.getMessage(), new PersonDataExceptionBean());
+        }
+        return message;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "deletePerson")
+    public void deletePerson(@WebParam(name = "id") int id) throws PersonDataException {
+        try {
+            DBOperations.deletePerson(id);
+        } catch (Exception ex) {
+            throw new PersonDataException(ex.getMessage(), new PersonDataExceptionBean());
+        }
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "updatePerson")
+    public String updatePerson(@WebParam(name = "personData") PersonData personData) throws PersonDataException {
+        String message;
+        try {
+            message = DBOperations.updatePerson(personData);
+        } catch (Exception ex) {
+            throw new PersonDataException(ex.getMessage(), new PersonDataExceptionBean());
+        }
+        return message;
     }
 
 

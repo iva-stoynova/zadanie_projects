@@ -22,18 +22,9 @@ public class DBOperations {
         return conn != null;
     }
     
-    public static String createConnection() {
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-            conn = DriverManager.getConnection(dbURL);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, ex);
-            return ex.getMessage();
-        } catch (InstantiationException | IllegalAccessException | SQLException ex) {
-            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, ex);
-            return ex.getMessage();
-        }
-        return null;
+    public static void createConnection() throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
+        conn = DriverManager.getConnection(dbURL);
     }
     
     public static boolean shutdown() {
@@ -53,11 +44,9 @@ public class DBOperations {
         return true;
     }
     
-    public static LinkedList<PersonData> findPersons(String name) throws SQLException {
+    public static LinkedList<PersonData> findPersons(String name) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         if(!isConnected()) {
-            if(createConnection() != null) {
-                return null;
-            }
+            createConnection();
         }
         
         LinkedList<PersonData> personDataList = new LinkedList<>();        
@@ -80,51 +69,42 @@ public class DBOperations {
         return personDataList;
     }
     
-    public static String createPerson(PersonData personData) {
+    public static String createPerson(PersonData personData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         String validateMessage;
         validateMessage = validatePersonData(personData);
         if(validateMessage != null) {
             return validateMessage;
         }
-        String result = createPersonInternal(personData);
-        return result;
-    }
-    
-    private static String createPersonInternal(PersonData personData) {
-        if(!isConnected()) {
-            String resultString = createConnection();
-            if(resultString != null) {
-                return resultString;
-            }
-        }
-        
-        try {
-            stmt = conn.createStatement();
-            // insert into root.T_PEOPLE(FULL_NAME, PIN, EMAIL) VALUES ('ИВАН ПЕТРОВ ИВАНОВ', NULL, NULL);
-            String queryString = "insert into " + tableName + "(FULL_NAME, PIN, EMAIL) VALUES('" + personData.getFULL_NAME() + "',";
-            if(personData.getPIN() == null || personData.getPIN().isEmpty()) {
-                queryString += "NULL";
-            }
-            else {
-                queryString += "'" + personData.getPIN() + "'";
-            }
-            queryString += ",";
-            if(personData.getEMAIL() == null || personData.getEMAIL().isEmpty()) {
-                queryString += "NULL";
-            }
-            else {
-                queryString += "'" + personData.getEMAIL() + "'";
-            }
-            queryString += ")";
-            stmt.executeUpdate(queryString);
-        } catch (SQLException e) {
-            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
-            return e.getMessage();
-        }
+        createPersonInternal(personData);
         return null;
     }
     
-    public static String updatePerson(PersonData personData) {
+    private static void createPersonInternal(PersonData personData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
+        if(!isConnected()) {
+            createConnection();
+        }       
+
+        stmt = conn.createStatement();
+        // insert into root.T_PEOPLE(FULL_NAME, PIN, EMAIL) VALUES ('ИВАН ПЕТРОВ ИВАНОВ', NULL, NULL);
+        String queryString = "insert into " + tableName + "(FULL_NAME, PIN, EMAIL) VALUES('" + personData.getFULL_NAME() + "',";
+        if(personData.getPIN() == null || personData.getPIN().isEmpty()) {
+            queryString += "NULL";
+        }
+        else {
+            queryString += "'" + personData.getPIN() + "'";
+        }
+        queryString += ",";
+        if(personData.getEMAIL() == null || personData.getEMAIL().isEmpty()) {
+            queryString += "NULL";
+        }
+        else {
+            queryString += "'" + personData.getEMAIL() + "'";
+        }
+        queryString += ")";
+        stmt.executeUpdate(queryString);
+    }
+    
+    public static String updatePerson(PersonData personData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         String validateMessage;
         validateMessage = validatePersonData(personData);
         if(validateMessage != null) {
@@ -134,57 +114,40 @@ public class DBOperations {
         return result;
     }
     
-    private static String updatePersonInternal(PersonData personData) {
+    private static String updatePersonInternal(PersonData personData) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SQLException {
         if(!isConnected()) {
-            String resultString = createConnection();
-            if(resultString != null) {
-                return resultString;
-            }
+            createConnection();
+        }        
+
+        stmt = conn.createStatement();
+        String queryString = "update " + tableName + "set FULL_NAME=" + "'" +
+                personData.getFULL_NAME() + "',PIN=";
+        if(personData.getPIN() == null || personData.getPIN().isEmpty()) {
+            queryString += "NULL";
         }
-        
-        try {
-            stmt = conn.createStatement();
-            // insert into root.T_PEOPLE(FULL_NAME, PIN, EMAIL) VALUES ('ИВАН ПЕТРОВ ИВАНОВ', NULL, NULL);
-            String queryString = "update " + tableName + "set FULL_NAME=" + "'" +
-                    personData.getFULL_NAME() + "',PIN=";
-            if(personData.getPIN().isEmpty()) {
-                queryString += "NULL";
-            }
-            else {
-                queryString += "'" + personData.getPIN() + "'";
-            }
-            queryString += ",EMAIL=";
-            if(personData.getEMAIL().isEmpty()) {
-                queryString += "NULL";
-            }
-            else {
-                queryString += "'" + personData.getEMAIL() + "'";
-            }
-            queryString += " where ID=" + personData.getID();
-            stmt.executeUpdate(queryString);
-        } catch (SQLException e) {
-            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
-            return e.getMessage();
+        else {
+            queryString += "'" + personData.getPIN() + "'";
         }
+        queryString += ",EMAIL=";
+        if(personData.getEMAIL() == null || personData.getEMAIL().isEmpty()) {
+            queryString += "NULL";
+        }
+        else {
+            queryString += "'" + personData.getEMAIL() + "'";
+        }
+        queryString += " where ID=" + personData.getID();
+        stmt.executeUpdate(queryString);
+
         return null;
     }
     
-    public static String deletePerson(int id) {
+    public static void deletePerson(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
          if(!isConnected()) {
-            String resultString = createConnection();
-            if(resultString != null) {
-                return resultString;
-            }
+            createConnection();
         }
          
-        try {
-            stmt = conn.createStatement();
-            stmt.executeUpdate("delete from " + tableName + " where ID=" + id);
-        } catch (SQLException e) {
-            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
-            return e.getMessage();
-        }
-        return null;
+        stmt = conn.createStatement();
+        stmt.executeUpdate("delete from " + tableName + " where ID=" + id);
     }
     
     private static String validatePersonData(PersonData personData) {
