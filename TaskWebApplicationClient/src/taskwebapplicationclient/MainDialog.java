@@ -112,7 +112,8 @@ public class MainDialog extends javax.swing.JDialog {
         if(searchName != null) {
            List<Object> personDataList = findPersons(searchName);
            if(personDataList.size() > 0) {
-                JOptionPane.showMessageDialog(this, personDataList.get(0));
+                PersonData personData = (PersonData)personDataList.get(0);
+                JOptionPane.showMessageDialog(this, personData.getFULLNAME());
            }
            else {
                 JOptionPane.showMessageDialog(this, "No matching person or persons found");
