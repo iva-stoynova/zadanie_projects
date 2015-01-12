@@ -106,17 +106,6 @@ public class MainDialog extends javax.swing.JDialog {
         CreateOrUpdateDialog dialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
         dialog.setUpdatePersonMode(false);
         dialog.setVisible(true);
-        PersonData personData = new PersonData();
-        personData.setFULLNAME(dialog.getPersonFullName());
-        personData.setPIN(dialog.getPersonPIN());
-        personData.setEMAIL(dialog.getPersonEmail());
-        String result = createPerson(personData);
-        if(result == null) {
-            JOptionPane.showMessageDialog(this, "Person record created successfully");
-        }
-        else {
-            JOptionPane.showMessageDialog(this, result, "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_createPersonButtonActionPerformed
 
     private void findPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPersonButtonActionPerformed
@@ -230,7 +219,7 @@ public class MainDialog extends javax.swing.JDialog {
         return port.findPersons(name);
     }
 
-    private static String createPerson(org.me.people.PersonData personData) {
+    public static String createPerson(org.me.people.PersonData personData) {
         org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
         org.me.people.PeopleWS port = service.getPeopleWSPort();
         return port.createPerson(personData);

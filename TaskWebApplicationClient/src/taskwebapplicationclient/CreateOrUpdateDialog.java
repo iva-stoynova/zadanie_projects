@@ -5,6 +5,9 @@
  */
 package taskwebapplicationclient;
 
+import javax.swing.JOptionPane;
+import org.me.people.PersonData;
+
 /**
  *
  * @author Iva Stoynova
@@ -136,7 +139,18 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        dispose();
+        PersonData personData = new PersonData();
+        personData.setFULLNAME(getPersonFullName());
+        personData.setPIN(getPersonPIN());
+        personData.setEMAIL(getPersonEmail());
+        String result = MainDialog.createPerson(personData);
+        if(result == null) {
+            JOptionPane.showMessageDialog(this, "Person record created successfully");
+            dispose();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, result, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     public String getPersonFullName() {
