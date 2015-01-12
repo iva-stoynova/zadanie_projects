@@ -50,7 +50,7 @@ public class MainDialog extends javax.swing.JDialog {
             }
         });
 
-        findPersonButton.setText("View person");
+        findPersonButton.setText("View a person");
         findPersonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findPersonButtonActionPerformed(evt);
