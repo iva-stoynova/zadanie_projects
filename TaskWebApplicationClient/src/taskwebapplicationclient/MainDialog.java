@@ -110,10 +110,15 @@ public class MainDialog extends javax.swing.JDialog {
         dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
         String searchName = dialog.showDialog();
         if(searchName != null) {
-           List<Object> personDataList = findPersons(searchName);
+           List<PersonData> personDataList = (List<PersonData>)(Object)findPersons(searchName);
            if(personDataList.size() > 0) {
-                PersonData personData = (PersonData)personDataList.get(0);
-                JOptionPane.showMessageDialog(this, personData.getFULLNAME());
+               String message;
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList);
+                Integer personListDialogResult = personListDialog.showDialog();
+                if(personListDialogResult != null) {
+                    message = Integer.toString(personListDialogResult);
+                    JOptionPane.showMessageDialog(this, message);
+                }
            }
            else {
                 JOptionPane.showMessageDialog(this, "No matching person or persons found");

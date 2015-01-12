@@ -7,6 +7,8 @@ package taskwebapplicationclient;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import org.me.people.PersonData;
 
 /**
@@ -14,8 +16,10 @@ import org.me.people.PersonData;
  * @author Iva Stoynova
  */
 public class PersonListDialog extends javax.swing.JDialog {
-    List<PersonData> personDataList;
-    Integer indexOfSelectedItem = null;
+    private String[] tableColumnNames;
+    private Object[][] tableData;
+    private List<PersonData> personDataList;
+    private Integer indexOfSelectedItem = null;
     /**
      * Creates new form PersonListDialog
      */
@@ -23,6 +27,16 @@ public class PersonListDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.personDataList = personDataList;
         initComponents();
+        tableColumnNames = new String[] {"Full name", "PIN", "Email"};
+        tableData = new Object[personDataList.size()][3];
+        int i = 0;
+        for(PersonData personData : personDataList) {
+            tableData[i][0] = personData.getFULLNAME();
+            tableData[i][1] = personData.getPIN();
+            tableData[i][2] = personData.getEMAIL();            
+            i++;
+        }
+        personDataTable.setModel(new DefaultTableModel(tableData, tableColumnNames));
     }
     
     public Integer showDialog() {
@@ -49,34 +63,15 @@ public class PersonListDialog extends javax.swing.JDialog {
 
         personDataTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+
             },
             new String [] {
-                "Full name", "PIN", "Email"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
             }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         personDataTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(personDataTable);
         personDataTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        if (personDataTable.getColumnModel().getColumnCount() > 0) {
-            personDataTable.getColumnModel().getColumn(0).setResizable(false);
-            personDataTable.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
