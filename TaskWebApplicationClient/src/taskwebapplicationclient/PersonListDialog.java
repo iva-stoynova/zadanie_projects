@@ -19,11 +19,13 @@ public class PersonListDialog extends javax.swing.JDialog {
     private Object[][] tableData;
     private List<PersonData> personDataList;
     private Integer indexOfSelectedItem = null;
+    private boolean hideCancelButton;
     /**
      * Creates new form PersonListDialog
      */
     public PersonListDialog(java.awt.Frame parent, boolean modal, List<PersonData> personDataList, boolean hideCancelButton) {
         super(parent, modal);
+        this.hideCancelButton = hideCancelButton;
         this.personDataList = personDataList;
         initComponents();
         tableColumnNames = new String[] {"Full name", "PIN", "Email"};
@@ -38,6 +40,7 @@ public class PersonListDialog extends javax.swing.JDialog {
         personDataTable.setModel(new CustomTableModel(tableData, tableColumnNames));
         if(hideCancelButton) {
             cancelButton.setVisible(false);
+            personDataTable.setRowSelectionAllowed(false);
         }
     }
     
@@ -125,13 +128,19 @@ public class PersonListDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if(personDataTable.getSelectedRow() != -1) {
-            indexOfSelectedItem = personDataTable.getSelectedRow();
-            setVisible(false);
-            dispose();
+        if(!hideCancelButton) {
+            if(personDataTable.getSelectedRow() != -1) {
+                indexOfSelectedItem = personDataTable.getSelectedRow();
+                setVisible(false);
+                dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Please select a person first");
+            }
         }
         else {
-            JOptionPane.showMessageDialog(this, "Please select a person first");
+            setVisible(false);
+            dispose();
         }
     }//GEN-LAST:event_okButtonActionPerformed
 
