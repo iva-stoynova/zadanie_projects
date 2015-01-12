@@ -102,14 +102,14 @@ public class DBOperations {
             stmt = conn.createStatement();
             // insert into root.T_PEOPLE(FULL_NAME, PIN, EMAIL) VALUES ('ИВАН ПЕТРОВ ИВАНОВ', NULL, NULL);
             String queryString = "insert into " + tableName + "(FULL_NAME, PIN, EMAIL) VALUES('" + personData.getFULL_NAME() + "',";
-            if(personData.getPIN().isEmpty()) {
+            if(personData.getPIN() == null || personData.getPIN().isEmpty()) {
                 queryString += "NULL";
             }
             else {
                 queryString += "'" + personData.getPIN() + "'";
             }
             queryString += ",";
-            if(personData.getEMAIL().isEmpty()) {
+            if(personData.getEMAIL() == null || personData.getEMAIL().isEmpty()) {
                 queryString += "NULL";
             }
             else {
@@ -201,7 +201,7 @@ public class DBOperations {
             return "Name must contain only latin or cyrillic letters, a space or a dash";
         }
         String pin = personData.getPIN();
-        if(!pin.isEmpty()) {
+        if(pin != null && !pin.isEmpty()) {
             if(pin.length() != 10) {
                 return "PIN must be exactly 10 digits";
             }
@@ -212,7 +212,7 @@ public class DBOperations {
             }            
         }
         String email = personData.getEMAIL();
-        if(!email.isEmpty()) {
+        if(email != null && !email.isEmpty()) {
             if(email.length() > 40) {
                 return "Email cannot be longer than 40 characters";
             }
