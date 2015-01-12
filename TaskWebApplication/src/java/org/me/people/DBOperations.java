@@ -64,7 +64,7 @@ public class DBOperations {
         PersonData personData;
         try {
             stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery("select * from " + tableName + "where full_name='" + name + "'");
+            ResultSet results = stmt.executeQuery("select * from " + tableName + " where full_name='" + name + "'");
             while(results.next()) {
                 personData = new PersonData();
                 personData.setID(results.getInt(1));

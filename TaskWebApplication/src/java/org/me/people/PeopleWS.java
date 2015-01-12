@@ -56,8 +56,8 @@ public class PeopleWS {
      */
     @WebMethod(operationName = "findPersons")
     public List findPersons(@WebParam(name = "name") String name) {
-        //TODO write your implementation code here:
-        return null;
+        List<PersonData> personDataList = DBOperations.findPersons(name);
+        return personDataList;
     }
 
 }
