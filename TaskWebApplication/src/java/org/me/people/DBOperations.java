@@ -53,7 +53,7 @@ public class DBOperations {
         return true;
     }
     
-    public static LinkedList<PersonData> findPersons(String name) {
+    public static LinkedList<PersonData> findPersons(String name) throws SQLException {
         if(!isConnected()) {
             if(createConnection() != null) {
                 return null;
@@ -75,7 +75,7 @@ public class DBOperations {
             }
         } catch (SQLException e) {
             Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, e);
-            return null;
+            throw e;
         }
         return personDataList;
     }

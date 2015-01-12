@@ -5,7 +5,10 @@
  */
 package org.me.people;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -55,9 +58,15 @@ public class PeopleWS {
      * Web service operation
      */
     @WebMethod(operationName = "findPersons")
-    public List findPersons(@WebParam(name = "name") String name) {
-        List<PersonData> personDataList = DBOperations.findPersons(name);
-        return personDataList;
+    public List findPersons(@WebParam(name = "name") String name) throws PersonDataException {
+        List<PersonData> list;
+        try {
+            list = DBOperations.findPersons(name);
+        } catch (SQLException ex) {
+            throw new PersonDataException(ex.getMessage(), new PersonDataExceptionBean());
+        }
+        return list;
     }
+
 
 }
