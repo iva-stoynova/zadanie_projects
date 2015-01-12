@@ -195,7 +195,7 @@ public class DBOperations {
         if(full_name.length() > 90) {
             return "Name field cannot be longer than 90 characters";
         }
-        Pattern pattern = Pattern.compile("[^a-zA-Z0-9а-яА-Я\\ \\-]");
+        Pattern pattern = Pattern.compile("[^a-zA-Zа-яА-Я\\ \\-]");
         boolean hasOtherCharacter = pattern.matcher(full_name).find();
         if(hasOtherCharacter) {
             return "Name must contain only latin or cyrillic letters, a space or a dash";
@@ -205,7 +205,7 @@ public class DBOperations {
             if(pin.length() != 10) {
                 return "PIN must be exactly 10 digits";
             }
-            pattern = Pattern.compile("^[0-9]");
+            pattern = Pattern.compile("[^0-9]");
             hasOtherCharacter = pattern.matcher(pin).find();
             if(hasOtherCharacter) {
                 return "PIN must contain numbers only";
