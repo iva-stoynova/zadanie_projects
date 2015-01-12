@@ -194,4 +194,28 @@ public class MainDialog extends javax.swing.JDialog {
     private javax.swing.JButton findPersonButton;
     private javax.swing.JButton updatePersonButton;
     // End of variables declaration//GEN-END:variables
+
+    private static java.util.List<java.lang.Object> findPersons(java.lang.String name) {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        return port.findPersons(name);
+    }
+
+    private static String createPerson(org.me.people.PersonData personData) {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        return port.createPerson(personData);
+    }
+
+    private static String deletePerson(int id) {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        return port.deletePerson(id);
+    }
+
+    private static String updatePerson(org.me.people.PersonData personData) {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        return port.updatePerson(personData);
+    }
 }

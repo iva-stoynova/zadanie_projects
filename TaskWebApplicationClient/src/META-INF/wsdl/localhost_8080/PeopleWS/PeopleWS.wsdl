@@ -16,17 +16,17 @@
 <message name="updatePersonResponse">
 <part name="parameters" element="tns:updatePersonResponse"/>
 </message>
+<message name="findPersons">
+<part name="parameters" element="tns:findPersons"/>
+</message>
+<message name="findPersonsResponse">
+<part name="parameters" element="tns:findPersonsResponse"/>
+</message>
 <message name="createPerson">
 <part name="parameters" element="tns:createPerson"/>
 </message>
 <message name="createPersonResponse">
 <part name="parameters" element="tns:createPersonResponse"/>
-</message>
-<message name="findPerson">
-<part name="parameters" element="tns:findPerson"/>
-</message>
-<message name="findPersonResponse">
-<part name="parameters" element="tns:findPersonResponse"/>
 </message>
 <portType name="PeopleWS">
 <operation name="deletePerson">
@@ -37,13 +37,13 @@
 <input wsam:Action="http://people.me.org/PeopleWS/updatePersonRequest" message="tns:updatePerson"/>
 <output wsam:Action="http://people.me.org/PeopleWS/updatePersonResponse" message="tns:updatePersonResponse"/>
 </operation>
+<operation name="findPersons">
+<input wsam:Action="http://people.me.org/PeopleWS/findPersonsRequest" message="tns:findPersons"/>
+<output wsam:Action="http://people.me.org/PeopleWS/findPersonsResponse" message="tns:findPersonsResponse"/>
+</operation>
 <operation name="createPerson">
 <input wsam:Action="http://people.me.org/PeopleWS/createPersonRequest" message="tns:createPerson"/>
 <output wsam:Action="http://people.me.org/PeopleWS/createPersonResponse" message="tns:createPersonResponse"/>
-</operation>
-<operation name="findPerson">
-<input wsam:Action="http://people.me.org/PeopleWS/findPersonRequest" message="tns:findPerson"/>
-<output wsam:Action="http://people.me.org/PeopleWS/findPersonResponse" message="tns:findPersonResponse"/>
 </operation>
 </portType>
 <binding name="PeopleWSPortBinding" type="tns:PeopleWS">
@@ -66,7 +66,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="createPerson">
+<operation name="findPersons">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -75,7 +75,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="findPerson">
+<operation name="createPerson">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>

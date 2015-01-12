@@ -8,9 +8,9 @@
 
 <xs:element name="deletePersonResponse" type="tns:deletePersonResponse"/>
 
-<xs:element name="findPerson" type="tns:findPerson"/>
+<xs:element name="findPersons" type="tns:findPersons"/>
 
-<xs:element name="findPersonResponse" type="tns:findPersonResponse"/>
+<xs:element name="findPersonsResponse" type="tns:findPersonsResponse"/>
 
 <xs:element name="updatePerson" type="tns:updatePerson"/>
 
@@ -28,15 +28,21 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="findPerson">
+<xs:complexType name="findPersons">
 <xs:sequence>
 <xs:element name="name" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="findPersonResponse">
+<xs:complexType name="findPersonsResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:personData" minOccurs="0"/>
+<xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="createPerson">
+<xs:sequence>
+<xs:element name="personData" type="tns:personData" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -46,12 +52,6 @@
 <xs:element name="FULL_NAME" type="xs:string" minOccurs="0"/>
 <xs:element name="ID" type="xs:int"/>
 <xs:element name="PIN" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="createPerson">
-<xs:sequence>
-<xs:element name="personData" type="tns:personData" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
