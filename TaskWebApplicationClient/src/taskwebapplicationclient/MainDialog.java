@@ -5,7 +5,9 @@
  */
 package taskwebapplicationclient;
 
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.me.people.PersonData;
 
 /**
  *
@@ -108,7 +110,13 @@ public class MainDialog extends javax.swing.JDialog {
         dialog.setFieldInputMode(FieldInputMode.FIND_PERSON);
         String searchName = dialog.showDialog();
         if(searchName != null) {
-           JOptionPane.showMessageDialog(this, searchName);
+           List<Object> personDataList = findPersons(searchName);
+           if(personDataList.size() > 0) {
+                JOptionPane.showMessageDialog(this, personDataList.get(0));
+           }
+           else {
+                JOptionPane.showMessageDialog(this, "No matching person or persons found");
+           }
         }
     }//GEN-LAST:event_findPersonButtonActionPerformed
 
