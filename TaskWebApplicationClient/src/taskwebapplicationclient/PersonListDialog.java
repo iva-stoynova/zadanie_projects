@@ -22,7 +22,7 @@ public class PersonListDialog extends javax.swing.JDialog {
     /**
      * Creates new form PersonListDialog
      */
-    public PersonListDialog(java.awt.Frame parent, boolean modal, List<PersonData> personDataList) {
+    public PersonListDialog(java.awt.Frame parent, boolean modal, List<PersonData> personDataList, boolean hideCancelButton) {
         super(parent, modal);
         this.personDataList = personDataList;
         initComponents();
@@ -34,8 +34,11 @@ public class PersonListDialog extends javax.swing.JDialog {
             tableData[i][1] = personData.getPIN();
             tableData[i][2] = personData.getEMAIL();            
             i++;
+        }     
+        personDataTable.setModel(new CustomTableModel(tableData, tableColumnNames));
+        if(hideCancelButton) {
+            cancelButton.setVisible(false);
         }
-        personDataTable.setModel(new DefaultTableModel(tableData, tableColumnNames));
     }
     
     public Integer showDialog() {
@@ -86,7 +89,7 @@ public class PersonListDialog extends javax.swing.JDialog {
             }
         });
 
-        jLabel1.setText("Please choose a person:");
+        jLabel1.setText("Persons matching search criteria:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

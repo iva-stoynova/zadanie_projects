@@ -122,12 +122,12 @@ public class MainDialog extends javax.swing.JDialog {
             }
            if(personDataList.size() > 0) {
                String message;
-                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList);
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
                 Integer personListDialogResult = personListDialog.showDialog();
-                if(personListDialogResult != null) {
+                /*if(personListDialogResult != null) {
                     message = Integer.toString(personListDialogResult);
                     JOptionPane.showMessageDialog(this, message);
-                }
+                }*/
            }
            else {
                 JOptionPane.showMessageDialog(this, "No matching person or persons found");
@@ -157,7 +157,7 @@ public class MainDialog extends javax.swing.JDialog {
         String searchName = dialog.showDialog();
         String message = null;
         if(searchName != null) {
-            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, null);
+            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, null, false);
             Integer personListDialogResult= personListDialog.showDialog();
             if(personListDialogResult != null) {
                 message = Integer.toString(personListDialogResult);
