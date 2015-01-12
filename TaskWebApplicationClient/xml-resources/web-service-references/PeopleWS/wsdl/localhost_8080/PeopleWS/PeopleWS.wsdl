@@ -4,6 +4,21 @@
 <xsd:import namespace="http://people.me.org/" schemaLocation="http://localhost:8080/PeopleWS/PeopleWS?xsd=1"/>
 </xsd:schema>
 </types>
+<message name="deletePerson">
+<part name="parameters" element="tns:deletePerson"/>
+</message>
+<message name="deletePersonResponse">
+<part name="parameters" element="tns:deletePersonResponse"/>
+</message>
+<message name="PersonDataException">
+<part name="fault" element="tns:PersonDataException"/>
+</message>
+<message name="updatePerson">
+<part name="parameters" element="tns:updatePerson"/>
+</message>
+<message name="updatePersonResponse">
+<part name="parameters" element="tns:updatePersonResponse"/>
+</message>
 <message name="createPerson">
 <part name="parameters" element="tns:createPerson"/>
 </message>
@@ -16,52 +31,31 @@
 <message name="findPersonsResponse">
 <part name="parameters" element="tns:findPersonsResponse"/>
 </message>
-<message name="PersonDataException">
-<part name="fault" element="tns:PersonDataException"/>
-</message>
-<message name="updatePerson">
-<part name="parameters" element="tns:updatePerson"/>
-</message>
-<message name="updatePersonResponse">
-<part name="parameters" element="tns:updatePersonResponse"/>
-</message>
-<message name="deletePerson">
-<part name="parameters" element="tns:deletePerson"/>
-</message>
-<message name="deletePersonResponse">
-<part name="parameters" element="tns:deletePersonResponse"/>
-</message>
 <portType name="PeopleWS">
+<operation name="deletePerson">
+<input wsam:Action="http://people.me.org/PeopleWS/deletePersonRequest" message="tns:deletePerson"/>
+<output wsam:Action="http://people.me.org/PeopleWS/deletePersonResponse" message="tns:deletePersonResponse"/>
+<fault message="tns:PersonDataException" name="PersonDataException" wsam:Action="http://people.me.org/PeopleWS/deletePerson/Fault/PersonDataException"/>
+</operation>
+<operation name="updatePerson">
+<input wsam:Action="http://people.me.org/PeopleWS/updatePersonRequest" message="tns:updatePerson"/>
+<output wsam:Action="http://people.me.org/PeopleWS/updatePersonResponse" message="tns:updatePersonResponse"/>
+<fault message="tns:PersonDataException" name="PersonDataException" wsam:Action="http://people.me.org/PeopleWS/updatePerson/Fault/PersonDataException"/>
+</operation>
 <operation name="createPerson">
 <input wsam:Action="http://people.me.org/PeopleWS/createPersonRequest" message="tns:createPerson"/>
 <output wsam:Action="http://people.me.org/PeopleWS/createPersonResponse" message="tns:createPersonResponse"/>
+<fault message="tns:PersonDataException" name="PersonDataException" wsam:Action="http://people.me.org/PeopleWS/createPerson/Fault/PersonDataException"/>
 </operation>
 <operation name="findPersons">
 <input wsam:Action="http://people.me.org/PeopleWS/findPersonsRequest" message="tns:findPersons"/>
 <output wsam:Action="http://people.me.org/PeopleWS/findPersonsResponse" message="tns:findPersonsResponse"/>
 <fault message="tns:PersonDataException" name="PersonDataException" wsam:Action="http://people.me.org/PeopleWS/findPersons/Fault/PersonDataException"/>
 </operation>
-<operation name="updatePerson">
-<input wsam:Action="http://people.me.org/PeopleWS/updatePersonRequest" message="tns:updatePerson"/>
-<output wsam:Action="http://people.me.org/PeopleWS/updatePersonResponse" message="tns:updatePersonResponse"/>
-</operation>
-<operation name="deletePerson">
-<input wsam:Action="http://people.me.org/PeopleWS/deletePersonRequest" message="tns:deletePerson"/>
-<output wsam:Action="http://people.me.org/PeopleWS/deletePersonResponse" message="tns:deletePersonResponse"/>
-</operation>
 </portType>
 <binding name="PeopleWSPortBinding" type="tns:PeopleWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="createPerson">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="findPersons">
+<operation name="deletePerson">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -81,8 +75,11 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="PersonDataException">
+<soap:fault name="PersonDataException" use="literal"/>
+</fault>
 </operation>
-<operation name="deletePerson">
+<operation name="createPerson">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -90,6 +87,21 @@
 <output>
 <soap:body use="literal"/>
 </output>
+<fault name="PersonDataException">
+<soap:fault name="PersonDataException" use="literal"/>
+</fault>
+</operation>
+<operation name="findPersons">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+<fault name="PersonDataException">
+<soap:fault name="PersonDataException" use="literal"/>
+</fault>
 </operation>
 </binding>
 <service name="PeopleWS">

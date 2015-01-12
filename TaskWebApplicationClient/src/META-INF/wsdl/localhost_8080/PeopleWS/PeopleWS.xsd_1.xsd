@@ -25,9 +25,11 @@
 </xs:complexType>
 
 <xs:complexType name="deletePersonResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0"/>
-</xs:sequence>
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="personDataExceptionBean">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="findPersons">
@@ -40,10 +42,6 @@
 <xs:sequence>
 <xs:element name="return" type="xs:anyType" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="personDataExceptionBean">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="createPerson">

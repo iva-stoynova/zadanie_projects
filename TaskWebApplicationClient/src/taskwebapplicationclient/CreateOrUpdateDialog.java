@@ -5,16 +5,18 @@
  */
 package taskwebapplicationclient;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.me.people.PersonData;
+import org.me.people.PersonDataException;
 
 /**
  *
  * @author Iva Stoynova
  */
 public class CreateOrUpdateDialog extends javax.swing.JDialog {
-    private boolean updatePersonModeFlag = false;
-
+    PersonData updatePersonData = null;
     /**
      * Creates new form CreateOrUpdateDialog
      */
@@ -23,14 +25,33 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
         initComponents();
     }
     
-    public void setUpdatePersonMode(boolean flag) {
-        if(flag) {
+    public void setUpdatePersonMode(PersonData updatePersonData) {
+        if(updatePersonData != null) {
+            this.updatePersonData = updatePersonData;
+            nameTextField.setText(updatePersonData.getFULLNAME());
+            String pin = updatePersonData.getPIN();
+            if(pin != null && !pin.isEmpty()) {
+                pinCheckBox.setSelected(true);
+                pinTextField.setText(pin);
+            }
+            else {
+                pinCheckBox.setSelected(false);
+                pinTextField.setText("");
+            }
+            String email = updatePersonData.getEMAIL();
+            if(email != null && !email.isEmpty()) {
+                emailCheckBox.setSelected(true);
+                emailTextField.setText(pin);
+            }
+            else {
+                emailCheckBox.setSelected(false);
+                emailTextField.setText("");
+            }
             okButton.setText("Update person");
         }
         else {
             okButton.setText("Create person");
         }
-        updatePersonModeFlag = flag;
     }
 
     /**
@@ -139,18 +160,26 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        PersonData personData = new PersonData();
-        personData.setFULLNAME(getPersonFullName());
-        personData.setPIN(getPersonPIN());
-        personData.setEMAIL(getPersonEmail());
-        String result = MainDialog.createPerson(personData);
-        if(result == null) {
-            JOptionPane.showMessageDialog(this, "Person record created successfully");
+        
+        try {
+            PersonData personData = new PersonData();
+            personData.setFULLNAME(getPersonFullName());
+            personData.setPIN(getPersonPIN());
+            personData.setEMAIL(getPersonEmail());
+            if(updatePersonData != null) {
+                personData.setID(updatePersonData.getID());
+                MainDialog.updatePerson(updatePersonData);
+                JOptionPane.showMessageDialog(this, "Person record updated successfully");            
+            }
+            else {
+                MainDialog.createPerson(personData);
+                JOptionPane.showMessageDialog(this, "Person record created successfully");
+            }
             dispose();
-        }
-        else {
-            JOptionPane.showMessageDialog(this, result, "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        } catch (PersonDataException ex) {
+            Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }        
     }//GEN-LAST:event_okButtonActionPerformed
 
     public String getPersonFullName() {

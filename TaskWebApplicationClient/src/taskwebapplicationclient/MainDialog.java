@@ -17,7 +17,7 @@ import org.me.people.PersonDataException;
  * @author Iva Stoynova
  */
 public class MainDialog extends javax.swing.JDialog {
-
+    private final String NO_MATCHING_PERSONS_FOUND = "No matching person or persons found";
     /**
      * Creates new form MainDialog
      */
@@ -104,7 +104,7 @@ public class MainDialog extends javax.swing.JDialog {
 
     private void createPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createPersonButtonActionPerformed
         CreateOrUpdateDialog dialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
-        dialog.setUpdatePersonMode(false);
+        dialog.setUpdatePersonMode(null);
         dialog.setVisible(true);
     }//GEN-LAST:event_createPersonButtonActionPerformed
 
@@ -125,7 +125,7 @@ public class MainDialog extends javax.swing.JDialog {
                 personListDialog.showDialog();
            }
            else {
-                JOptionPane.showMessageDialog(this, "No matching person or persons found");
+                JOptionPane.showMessageDialog(this, NO_MATCHING_PERSONS_FOUND);
            }
         }
     }//GEN-LAST:event_findPersonButtonActionPerformed
@@ -135,33 +135,56 @@ public class MainDialog extends javax.swing.JDialog {
         dialog.setFieldInputMode(FieldInputMode.UPDATE_PERSON);
         String searchName = dialog.showDialog();
         if(searchName != null) {
-            // ok button pressed
+            List<PersonData> personDataList;
+            try {
+                personDataList = (List<PersonData>)(Object)findPersons(searchName);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Integer selectedPersonIndex = null;
+            if(personDataList.size() > 0) {
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
+                selectedPersonIndex = personListDialog.showDialog();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, NO_MATCHING_PERSONS_FOUND);
+                return;
+            }
             CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
-            updateDialog.setUpdatePersonMode(true);
+            updateDialog.setUpdatePersonMode(personDataList.get(selectedPersonIndex));
             updateDialog.setVisible(true);
         }
-        else {
-            // cancel button pressed
-        }
-        //JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_updatePersonButtonActionPerformed
 
     private void deletePersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletePersonButtonActionPerformed
         FieldInputDialog dialog = new FieldInputDialog(new javax.swing.JFrame(), true);
         dialog.setFieldInputMode(FieldInputMode.DELETE_PERSON);
         String searchName = dialog.showDialog();
-        String message = null;
         if(searchName != null) {
-            PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, null, false);
-            Integer personListDialogResult= personListDialog.showDialog();
-            if(personListDialogResult != null) {
-                message = Integer.toString(personListDialogResult);
+            List<PersonData> personDataList;
+            try {
+                personDataList = (List<PersonData>)(Object)findPersons(searchName);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            Integer selectedPersonIndex = null;
+            if(personDataList.size() > 0) {
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
+                selectedPersonIndex = personListDialog.showDialog();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, NO_MATCHING_PERSONS_FOUND);
+                return;
+            }
+            try {
+                deletePerson(personDataList.get(selectedPersonIndex).getID());
+            } catch (PersonDataException ex) {
+                Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-        else {
-            message = "cancel button pressed";
-        }
-        JOptionPane.showMessageDialog(this, message);
     }//GEN-LAST:event_deletePersonButtonActionPerformed
 
     /**
@@ -213,25 +236,25 @@ public class MainDialog extends javax.swing.JDialog {
     private javax.swing.JButton updatePersonButton;
     // End of variables declaration//GEN-END:variables
 
+    public static String createPerson(org.me.people.PersonData personData) throws PersonDataException {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        return port.createPerson(personData);
+    }
+
+    private static void deletePerson(int id) throws PersonDataException {
+        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
+        org.me.people.PeopleWS port = service.getPeopleWSPort();
+        port.deletePerson(id);
+    }
+
     private static java.util.List<java.lang.Object> findPersons(java.lang.String name) throws PersonDataException {
         org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
         org.me.people.PeopleWS port = service.getPeopleWSPort();
         return port.findPersons(name);
     }
 
-    public static String createPerson(org.me.people.PersonData personData) {
-        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
-        org.me.people.PeopleWS port = service.getPeopleWSPort();
-        return port.createPerson(personData);
-    }
-
-    private static String deletePerson(int id) {
-        org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
-        org.me.people.PeopleWS port = service.getPeopleWSPort();
-        return port.deletePerson(id);
-    }
-
-    private static String updatePerson(org.me.people.PersonData personData) {
+    public static String updatePerson(org.me.people.PersonData personData) throws PersonDataException {
         org.me.people.PeopleWS_Service service = new org.me.people.PeopleWS_Service();
         org.me.people.PeopleWS port = service.getPeopleWSPort();
         return port.updatePerson(personData);
