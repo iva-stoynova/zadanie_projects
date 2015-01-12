@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.me.people.PersonData;
-import org.me.people.PersonDataException;
 
 /**
  *
@@ -32,19 +31,23 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
             String pin = updatePersonData.getPIN();
             if(pin != null && !pin.isEmpty()) {
                 pinCheckBox.setSelected(true);
+                pinTextField.setEnabled(true);
                 pinTextField.setText(pin);
             }
             else {
                 pinCheckBox.setSelected(false);
+                pinTextField.setEnabled(false);
                 pinTextField.setText("");
             }
             String email = updatePersonData.getEMAIL();
             if(email != null && !email.isEmpty()) {
                 emailCheckBox.setSelected(true);
+                emailTextField.setEnabled(true);
                 emailTextField.setText(pin);
             }
             else {
                 emailCheckBox.setSelected(false);
+                emailTextField.setEnabled(false);
                 emailTextField.setText("");
             }
             okButton.setText("Update person");
@@ -160,24 +163,32 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        
         try {
             PersonData personData = new PersonData();
             personData.setFULLNAME(getPersonFullName());
             personData.setPIN(getPersonPIN());
             personData.setEMAIL(getPersonEmail());
+            String message;
             if(updatePersonData != null) {
                 personData.setID(updatePersonData.getID());
-                MainDialog.updatePerson(updatePersonData);
-                JOptionPane.showMessageDialog(this, "Person record updated successfully");            
+                message = MainDialog.updatePerson(updatePersonData);
+                if(message == null) {
+                    JOptionPane.showMessageDialog(this, "Person record updated successfully");            
+                }
             }
             else {
-                MainDialog.createPerson(personData);
-                JOptionPane.showMessageDialog(this, "Person record created successfully");
+                message = MainDialog.createPerson(personData);
+                if(message == null) {
+                    JOptionPane.showMessageDialog(this, "Person record created successfully");
+                }
             }
-            dispose();
-        } catch (PersonDataException ex) {
-            Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+            if(message == null) {
+                dispose();
+            }
+            else {
+                JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);    
+            }
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_okButtonActionPerformed

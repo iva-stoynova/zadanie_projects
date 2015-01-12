@@ -50,7 +50,7 @@ public class MainDialog extends javax.swing.JDialog {
             }
         });
 
-        findPersonButton.setText("Find a person");
+        findPersonButton.setText("View person info");
         findPersonButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 findPersonButtonActionPerformed(evt);
@@ -75,19 +75,19 @@ public class MainDialog extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(createPersonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(findPersonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(updatePersonButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deletePersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(94, Short.MAX_VALUE))
+                    .addComponent(deletePersonButton, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(65, 65, 65))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(26, 26, 26)
                 .addComponent(createPersonButton)
                 .addGap(31, 31, 31)
                 .addComponent(findPersonButton)
@@ -144,16 +144,18 @@ public class MainDialog extends javax.swing.JDialog {
             }
             Integer selectedPersonIndex = null;
             if(personDataList.size() > 0) {
-                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, false);
                 selectedPersonIndex = personListDialog.showDialog();
             }
             else {
                 JOptionPane.showMessageDialog(this, NO_MATCHING_PERSONS_FOUND);
                 return;
             }
-            CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
-            updateDialog.setUpdatePersonMode(personDataList.get(selectedPersonIndex));
-            updateDialog.setVisible(true);
+            if(selectedPersonIndex != null) {
+                CreateOrUpdateDialog updateDialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
+                updateDialog.setUpdatePersonMode(personDataList.get(selectedPersonIndex));
+                updateDialog.setVisible(true);
+            }
         }
     }//GEN-LAST:event_updatePersonButtonActionPerformed
 
@@ -171,18 +173,20 @@ public class MainDialog extends javax.swing.JDialog {
             }
             Integer selectedPersonIndex = null;
             if(personDataList.size() > 0) {
-                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
+                PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, false);
                 selectedPersonIndex = personListDialog.showDialog();
             }
             else {
                 JOptionPane.showMessageDialog(this, NO_MATCHING_PERSONS_FOUND);
                 return;
             }
-            try {
-                deletePerson(personDataList.get(selectedPersonIndex).getID());
-            } catch (PersonDataException ex) {
-                Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            if(selectedPersonIndex != null) {
+                try {
+                    deletePerson(personDataList.get(selectedPersonIndex).getID());
+                } catch (PersonDataException ex) {
+                    Logger.getLogger(CreateOrUpdateDialog.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
     }//GEN-LAST:event_deletePersonButtonActionPerformed
