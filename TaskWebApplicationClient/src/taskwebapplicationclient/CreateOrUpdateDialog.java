@@ -139,6 +139,32 @@ public class CreateOrUpdateDialog extends javax.swing.JDialog {
         dispose();
     }//GEN-LAST:event_okButtonActionPerformed
 
+    public String getPersonFullName() {
+        return nameTextField.getText();     
+    }
+    
+    public String getPersonPIN() {
+        String PIN;
+        if(pinCheckBox.isSelected()) {
+            PIN = pinTextField.getText();
+        }
+        else {
+            PIN = null;
+        }
+        return PIN;  
+    }
+    
+    public String getPersonEmail() {
+        String email;
+        if(emailCheckBox.isSelected()) {
+            email = emailTextField.getText();
+        }
+        else {
+            email = null;
+        }
+        return email;        
+    }
+    
     private void pinCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pinCheckBoxActionPerformed
         pinTextField.setEnabled(pinCheckBox.isSelected());
     }//GEN-LAST:event_pinCheckBoxActionPerformed

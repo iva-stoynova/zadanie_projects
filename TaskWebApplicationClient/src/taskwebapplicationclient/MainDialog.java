@@ -106,6 +106,17 @@ public class MainDialog extends javax.swing.JDialog {
         CreateOrUpdateDialog dialog = new CreateOrUpdateDialog(new javax.swing.JFrame(), true);
         dialog.setUpdatePersonMode(false);
         dialog.setVisible(true);
+        PersonData personData = new PersonData();
+        personData.setFULLNAME(dialog.getPersonFullName());
+        personData.setPIN(dialog.getPersonPIN());
+        personData.setEMAIL(dialog.getPersonEmail());
+        String result = createPerson(personData);
+        if(result == null) {
+            JOptionPane.showMessageDialog(this, "Person record created successfully");
+        }
+        else {
+            JOptionPane.showMessageDialog(this, result, "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_createPersonButtonActionPerformed
 
     private void findPersonButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_findPersonButtonActionPerformed
@@ -121,13 +132,8 @@ public class MainDialog extends javax.swing.JDialog {
                 return;
             }
            if(personDataList.size() > 0) {
-               String message;
                 PersonListDialog personListDialog = new PersonListDialog(new javax.swing.JFrame(), true, personDataList, true);
-                Integer personListDialogResult = personListDialog.showDialog();
-                /*if(personListDialogResult != null) {
-                    message = Integer.toString(personListDialogResult);
-                    JOptionPane.showMessageDialog(this, message);
-                }*/
+                personListDialog.showDialog();
            }
            else {
                 JOptionPane.showMessageDialog(this, "No matching person or persons found");
