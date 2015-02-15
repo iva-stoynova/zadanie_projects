@@ -5,10 +5,7 @@
  */
 package taskwebapplicationclient;
 
-/**
- *
- * @author vesko
- */
+
 public class TaskWebApplicationClient {
 
     /**
